@@ -134,8 +134,9 @@ class AuthActions {
         cy.get('div > .dropdown-item').click({ force: true });
         cy.get('.modal-body > :nth-child(2)').type(this.nameLink);
         cy.get('.modal-body > :nth-child(4)').type(this.linkOthers);
-        cy.get('.Atalhos_buttonsalvar__2K0Uy').click({ force: true });
-        cy.get(':nth-child(6) > a > p').should('have.text', this.nameLink)
+        cy.get('.Atalhos_buttonsalvar__2K0Uy').dblclick({ force: true });
+        cy.get(':nth-child(6) > a > p', {timout: 10000}).should('be.visible')
+            .and('have.text', this.nameLink)
 
     }
 

@@ -8,8 +8,91 @@ describe("Teste Site WorX - Grupo 4", () => {
         cy.goToPage();
     });
 
-    it.only("Pesquisar na barra com faker", () => {
-      auth.barraPesquisar();
+    it("Pesquisar na barra com faker", () => {
+        auth.barraPesquisar();
+    });
+
+
+
+    it("Cadastro Valido", () => {
+        cy.registerInfo('Arande Cristina', ' 7865', 'APPIA', '08235770', '1745', '44617465896', '16/01/1998');
+
+    });
+
+    it("Cadastro Nome C/ mais de 70 palavras", () => {
+        cy.registerInfo(faker.random.words(71), ' 7865', 'APPIA', '08235770', '1745', '44617465896', '16/01/1998');
+
+    });
+
+
+    it("Cadastro Invalido (Caracter Especial)", () => {
+        cy.registerInfo('%%$$', ' 7865', 'APPIA', '08235770', '1745', '44617465896', '16/01/1998');
+
+    });
+
+    it("Cadastro Invalido (Numeros)", () => {
+        cy.registerInfo('474567', ' 7865', 'APPIA', '08235770', '1745', '44617465896', '16/01/1998');
+
+    });
+
+    it("Cadastro Invalido (Matricula C/ String)", () => {
+        cy.registerInfo('Arande Cristina', ' rstrasdtv', 'APPIA', '08235770', '1745', '44617465896', '16/01/1998');
+
+    });
+
+    it("Cadastro Invalido (Matricula C/ Caracter Especial)", () => {
+        cy.registerInfo('Arande Cristina', '%$%$%$%$%$%$%$', 'APPIA', '08235770', '1745', '44617465896', '16/01/1998');
+
+    });
+
+    it("Cadastro Invalido (Torre C/ Apenas numeros)", () => {
+        cy.registerInfo('Arande Cristina', ' 7865', '7855659625654', '08235770', '1745', '44617465896', '16/01/1998');
+
+    });
+
+    it("Cadastro Invalido (Torre C/ Caracter Especial)", () => {
+        cy.registerInfo('Arande Cristina', ' 7865', '%%$%$%$%', '08235770', '1745', '44617465896', '16/01/1998');
+
+    });
+
+    it("Cadastro Invalido (CEP Invalido)", () => {
+        cy.registerInfo('Arande Cristina', ' 7865', 'APPIA', '082357', '1745', '44617465896', '16/01/1998');
+
+    });
+
+    it("Cadastro Invalido (CEP C/ Caracter Especial)", () => {
+        cy.registerInfo('Arande Cristina', ' 7865', 'APPIA', '$$$$$%', '1745', '44617465896', '16/01/1998');
+
+    });
+
+    it("Cadastro Invalido (CEP C/ String)", () => {
+        cy.registerInfo('Arande Cristina', ' 7865', 'APPIA', 'rtgtssjdft', '1745', '44617465896', '16/01/1998');
+
+    });
+
+    it("Cadastro Invalido (CPF Invalido)", () => {
+        cy.registerInfo('Arande Cristina', ' 7865', 'APPIA', '08235770', '1745', '44617465', '16/01/1998');
+
+    });
+
+    it("Cadastro Invalido (CPF C/ Caracter Especial)", () => {
+        cy.registerInfo('Arande Cristina', ' 7865', 'APPIA', '08235770', '1745', '$%%$##@', '16/01/1998');
+
+    });
+
+    it("Cadastro Invalido (CPF C/ String)", () => {
+        cy.registerInfo('Arande Cristina', ' 7865', 'APPIA', '08235770', '1745', 'rtffjdtrf', '16/01/1998');
+
+    });
+
+    it("Cadastro Invalido (Data C/ Caracter Especial)", () => {
+        cy.registerInfo('Arande Cristina', ' 7865', 'APPIA', '08235770', '1745', '44617465896', '$%%$##@');
+
+    });
+
+    it("Cadastro Invalido (Data C/ String)", () => {
+        cy.registerInfo('Arande Cristina', ' 7865', 'APPIA', '08235770', '1745', '44617465896', 'RSEEFFD');
+
     });
 
     it("Avançar Banner", () => {
@@ -23,15 +106,15 @@ describe("Teste Site WorX - Grupo 4", () => {
         auth.validateDatePage3();
     });
 
-    it("Validar Tarefa Adicionada", () => {
-        auth.validateAddTask();
-    });
+    // it("Validar Tarefa Adicionada", () => {
+    //     auth.validateAddTask();
+    // });
 
     it("Validar Comentarios", () => {
         auth.validateComents();
     });
 
-    it("Adicionar link Outros", () => {
+    it.only("Adicionar link Outros", () => {
         auth.addLinkOthers();
     });
 
