@@ -1,0 +1,16 @@
+{
+    "signup": {
+        "name": "Arande Souza",
+        "cpf": "00117468989",
+        "email": "arande.com.br",
+        "whatsapp": "11999999999",
+        "address": {
+            "postalCode": "08235770",
+            "street": "Avenida Coronel Alves e Rocha Filho",
+            "numberStreet": "74586",
+            "details": "Casa 1",
+            "district": "Parque Guarani",
+            "city_uf": "São Paulo/SP"
+        }
+    }
+}

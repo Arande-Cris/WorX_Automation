@@ -1,7 +1,8 @@
 /// <reference types="cypress" />
 import auth from "../../support/Actions/authActions";
-import { parse } from "date-fns";
 import faker from "@faker-js/faker";
+
+
 
 describe("Teste Site WorX - Grupo 4", () => {
     beforeEach(() => {
@@ -12,92 +13,103 @@ describe("Teste Site WorX - Grupo 4", () => {
         auth.barraPesquisar();
     });
 
-
-
-    it("Cadastro Valido", () => {
-        cy.registerInfo('Arande Cristina', ' 7865', 'APPIA', '08235770', '1745', '44617465896', '16/01/1998');
-
-    });
-
-    it("Cadastro Nome C/ mais de 70 palavras", () => {
-        cy.registerInfo(faker.random.words(71), ' 7865', 'APPIA', '08235770', '1745', '44617465896', '16/01/1998');
-
-    });
-
-
-    it("Cadastro Invalido (Caracter Especial)", () => {
-        cy.registerInfo('%%$$', ' 7865', 'APPIA', '08235770', '1745', '44617465896', '16/01/1998');
-
-    });
-
-    it("Cadastro Invalido (Numeros)", () => {
-        cy.registerInfo('474567', ' 7865', 'APPIA', '08235770', '1745', '44617465896', '16/01/1998');
-
-    });
-
-    it("Cadastro Invalido (Matricula C/ String)", () => {
-        cy.registerInfo('Arande Cristina', ' rstrasdtv', 'APPIA', '08235770', '1745', '44617465896', '16/01/1998');
-
-    });
-
-    it("Cadastro Invalido (Matricula C/ Caracter Especial)", () => {
-        cy.registerInfo('Arande Cristina', '%$%$%$%$%$%$%$', 'APPIA', '08235770', '1745', '44617465896', '16/01/1998');
-
-    });
-
-    it("Cadastro Invalido (Torre C/ Apenas numeros)", () => {
-        cy.registerInfo('Arande Cristina', ' 7865', '7855659625654', '08235770', '1745', '44617465896', '16/01/1998');
-
-    });
-
-    it("Cadastro Invalido (Torre C/ Caracter Especial)", () => {
-        cy.registerInfo('Arande Cristina', ' 7865', '%%$%$%$%', '08235770', '1745', '44617465896', '16/01/1998');
-
-    });
-
-    it("Cadastro Invalido (CEP Invalido)", () => {
-        cy.registerInfo('Arande Cristina', ' 7865', 'APPIA', '082357', '1745', '44617465896', '16/01/1998');
-
-    });
-
-    it("Cadastro Invalido (CEP C/ Caracter Especial)", () => {
-        cy.registerInfo('Arande Cristina', ' 7865', 'APPIA', '$$$$$%', '1745', '44617465896', '16/01/1998');
-
-    });
-
-    it("Cadastro Invalido (CEP C/ String)", () => {
-        cy.registerInfo('Arande Cristina', ' 7865', 'APPIA', 'rtgtssjdft', '1745', '44617465896', '16/01/1998');
-
-    });
-
-    it("Cadastro Invalido (CPF Invalido)", () => {
-        cy.registerInfo('Arande Cristina', ' 7865', 'APPIA', '08235770', '1745', '44617465', '16/01/1998');
-
-    });
-
-    it("Cadastro Invalido (CPF C/ Caracter Especial)", () => {
-        cy.registerInfo('Arande Cristina', ' 7865', 'APPIA', '08235770', '1745', '$%%$##@', '16/01/1998');
-
-    });
-
-    it("Cadastro Invalido (CPF C/ String)", () => {
-        cy.registerInfo('Arande Cristina', ' 7865', 'APPIA', '08235770', '1745', 'rtffjdtrf', '16/01/1998');
-
-    });
-
-    it("Cadastro Invalido (Data C/ Caracter Especial)", () => {
-        cy.registerInfo('Arande Cristina', ' 7865', 'APPIA', '08235770', '1745', '44617465896', '$%%$##@');
-
-    });
-
-    it("Cadastro Invalido (Data C/ String)", () => {
-        cy.registerInfo('Arande Cristina', ' 7865', 'APPIA', '08235770', '1745', '44617465896', 'RSEEFFD');
-
-    });
-
     it("Avançar Banner", () => {
         auth.advanceBanner();
         auth.advanceBanner2();
+    });
+
+    it("Advance Page", () => {
+        auth.advancePages();
+    });
+
+    it("Cadastro Valido", () => {
+        cy.registerInfoValid('Arande Cristina', '1234', 'APPIA', '08235770', '1745', '44617465896', '2022-02-08', 'o nome é muito grande');
+
+    });
+
+    it("Cadastro NomeC/ mais de 71 palavras", () => {
+        cy.registerInfoInvalidName(faker.random.words(71), '1234', 'APPIA', '08235770', '1745', '44617465896', '2022-02-08', 'o nome é muito grande');
+
+    });
+
+    it("Cadastro Nome Invalido (Caracter Especial)", () => {
+        cy.registerInfoInvalidName('%%$$', '1234', 'APPIA', '08235770', '1745', '44617465896', '1998-01-16', 'o campo nome possui caracter inválido');
+
+    });
+
+    it("Cadastro Nome Invalido (Numeros)", () => {
+        cy.registerInfoInvalidName('474567 7454541', '1234', 'APPIA', '08235770', '1745', '44617465896', '1998-01-16', 'o campo nome possui caracter inválido');
+
+    });
+
+    it("Cadastro  Matricula Invalido (C/ 3 numeros", () => {
+        cy.registerInfoInvalidName('Arande Cristina', '123', 'APPIA', '08235770', '1745', '44617465896', '1998-01-16', 'informe os 4 números de matrícula');
+
+    });
+
+    it("Cadastro  Matricula Invalido (C/ 5 numeros", () => {
+        cy.registerInfoInvalidName('Arande Cristina', '12345', 'APPIA', '08235770', '1745', '44617465896', '1998-01-16', 'informe os 4 números de matrícula');
+
+    });
+
+    it("Cadastro  Matricula Invalido (C/ Letras", () => {
+        cy.registerInfoInvalidName('Arande Cristina', ' rstrasdtv', 'APPIA', '08235770', '1745', '44617465896', '1998-01-16', 'informe os 4 números de matrícula');
+
+    });
+
+    it("Cadastro Matrícula Invalido (C/ Caracter Especial)", () => {
+        cy.registerInfoInvalidName('Arande Cristina', '%$%$%$%$%$%$%$', 'APPIA', '08235770', '1745', '44617465896', '1998-01-16', 'informe os 4 números de matrícula');
+
+    });
+
+    it("Cadastro Torre  Invalido (C/ Apenas numeros)", () => {
+        cy.registerInfoInvalidName('Arande Cristina', '1234', '7855659625654', '08235770', '1745', '44617465896', '1998-01-16', 'campo torre tem caracteres numéricos em excesso');
+
+    });
+
+    it("Cadastro Torre Invalido (C/ Caracter Especial)", () => {
+        cy.registerInfoInvalidName('Arande Cristina', '1234', '%%$%$%$%', '08235770', '1745', '44617465896', '1998-01-16', 'campo torre tem caracteres especiais em excesso');
+
+    });
+
+    it("Cadastro CEP Invalido (7 Números)", () => {
+        cy.registerInfoInvalidName('Arande Cristina', '1234', 'APPIA', '1234857', '1745', '44617465896', '1998-01-16', 'informe os 8 número do cep sem espaço ou dígito');
+
+    });
+
+    it("Cadastro CEP Invalido (9 Números)", () => {
+        cy.registerInfoInvalidName('Arande Cristina', '1234', 'APPIA', '123485789', '1745', '44617465896', '1998-01-16', 'informe os 8 número do cep sem espaço ou dígito');
+
+    });
+
+    it("Cadastro CEP Invalido (CEP C/ Caracter Especial)", () => {
+        cy.registerInfoInvalidName('Arande Cristina', '1234', 'APPIA', '$$$$$%', '1745', '44617465896', '1998-01-16', 'informe os 8 número do cep sem espaço ou dígito');
+
+    });
+
+    it("Cadastro CEP Invalido (C/ String)", () => {
+        cy.registerInfoInvalidName('Arande Cristina', '1234', 'APPIA', 'rtgtssjdft', '1745', '44617465896', '1998-01-16', 'informe os 8 número do cep sem espaço ou dígito');
+
+    });
+
+    it("Cadastro CPF Invalido (Invalido)", () => {
+        cy.registerInfoInvalidName('Arande Cristina', '1234', 'APPIA', '08235770', '1745', '44617465', '1998-01-16', 'campo CPF não possui onze dígitos');
+
+    });
+
+    it("Cadastro CPF Invalido (C/ Caracter Especial)", () => {
+        cy.registerInfoInvalidName('Arande Cristina', '1234', 'APPIA', '08235770', '1745', '$%%$##@', '1998-01-16', 'campo CPF não possui onze dígitos');
+
+    });
+
+    it("Cadastro CPF Invalido (C/ String)", () => {
+        cy.registerInfoInvalidName('Arande Cristina', '1234', 'APPIA', '08235770', '1745', 'rtffjdtrf', '1998-01-16', 'campo CPF não possui onze dígitos');
+
+    });
+
+    it("Cadastro Data de aniversario Invalido (C/ data no futuro)", () => {
+        cy.registerInfoValid('Arande Cristina', '1234', 'APPIA', '08235770', '1745', '44915896336', '1998-01-16');
+
     });
 
     it("Validar Tipo data ", () => {
@@ -106,19 +118,13 @@ describe("Teste Site WorX - Grupo 4", () => {
         auth.validateDatePage3();
     });
 
-    // it("Validar Tarefa Adicionada", () => {
-    //     auth.validateAddTask();
-    // });
-
     it("Validar Comentarios", () => {
         auth.validateComents();
     });
 
-    it.only("Adicionar link Outros", () => {
+    it("Adicionar link Outros", () => {
         auth.addLinkOthers();
     });
-
-    //Redirecionamento Links
 
     it("Validar Link Team Culture", () => {
         cy.testLink(

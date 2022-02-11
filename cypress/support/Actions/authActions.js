@@ -3,8 +3,8 @@ import faker from "@faker-js/faker"
 
 class AuthActions {
     constructor() {
-        this.next = '.carousel-control-next-icon';
-        this.prev = '.carousel-control-prev-icon';
+        this.next = '[class= "carousel-control-next"]';
+        this.prev = '[class= "carousel-control-prev"]';
         this.escrever = 'Testar Adicionar Tarefas do dia';
         this.comentario = 'Testando comentário';
         this.nameLink = 'Cypress Avançado'
@@ -22,7 +22,7 @@ class AuthActions {
 
     barraPesquisar() {
         cy.get(this.barraPesquisa).type(faker.random.uuid(1));
-        cy.get(".fade")
+        cy.get('div[class^= "fade alert"]', { timout: 10000 })
             .should("be.visible")
             .and("have.text", "Certifique-se que digitou corretamente")
         cy.get(this.barraPesquisa).clear();
@@ -46,19 +46,19 @@ class AuthActions {
     }
 
     advanceBanner2() {
-        cy.get(".carousel-indicators > .active").click();
-        cy.get('[aria-label="Slide 2"]').click();
-        cy.get('[aria-label="Slide 3"]').click();
-        cy.get('[aria-label="Slide 4"]').click();
-        cy.get('[aria-label="Slide 5"]').click();
-        cy.get('[aria-label="Slide 6"]').click();
-        cy.get('[aria-label="Slide 7"]').click();
+        cy.get('button[aria-label="Slide 1"]').click();
+        cy.get('button[aria-label="Slide 2"]').click();
+        cy.get('button[aria-label="Slide 3"]').click();
+        cy.get('button[aria-label="Slide 4"]').click();
+        cy.get('button[aria-label="Slide 5"]').click();
+        cy.get('button[aria-label="Slide 6"]').click();
+        cy.get('button[aria-label="Slide 7"]').click();
     }
 
     advancePages() {
-        cy.get('[value="0"]').click();
-        cy.get('[value="1"]').click();
-        cy.get('[value="2"]').click();
+        cy.get('button[value="0"]').click();
+        cy.get('button[value="1"]').click();
+        cy.get('button[value="2"]').click();
     }
 
     validateDatePage1() {
@@ -104,10 +104,10 @@ class AuthActions {
         for (var i = 1; i < 6; i++) {
             cy.get(':nth-child(' + i + ') > .Tag_cardzao__20zfG > .Tag_cardBody__2TX7t > .Tag_interaction__1LnAN > .Tag_icons__-ADEd > .Modal_botaoComents__1XWMa').scrollIntoView()
                 .click({ force: true });
-            cy.get('#name').type(this.comentario);
-            cy.get('.Modal_comentButton__3pASH').click({ force: true });
-            cy.get('.modal-body > :nth-child(3)').should('contain', this.comentario);
-            cy.get('.btn-close').click();
+            cy.get('input[class="Modal_inputComent__2b0Af"]').type(this.comentario);
+            cy.get('button[class="Modal_comentButton__3pASH btn btn-primary"]').click({ force: true });
+            cy.get('div[class^="Modal_commentsContainer__3q_KR"]').should('contain', this.comentario);
+            cy.get('button[class="Modal_closeButton__Itema btn btn-primary"]').click();
             cy.log('Esse é o i:' + i);
         }
     }
@@ -115,11 +115,6 @@ class AuthActions {
     filter() {
 
     }
-
-
-
-
-
 
     favoriteNews() {
         for (var i = 1; i < 6; i++) {
@@ -135,17 +130,17 @@ class AuthActions {
         cy.get('.modal-body > :nth-child(2)').type(this.nameLink);
         cy.get('.modal-body > :nth-child(4)').type(this.linkOthers);
         cy.get('.Atalhos_buttonsalvar__2K0Uy').dblclick({ force: true });
-        cy.get(':nth-child(6) > a > p', {timout: 10000}).should('be.visible')
+        cy.get(':nth-child(6) > a > p', { timout: 10000 }).should('be.visible')
             .and('have.text', this.nameLink)
 
     }
 
     directionLinkTC() {
-        cy.get('.SidebarLinks_inicio__2lQRG').click();
-        cy.get('.SidebarLinks_pessoasHover__2qnHv > #offcanvasNavbarDropdown')
+        cy.get('[class="SidebarLinks_inicio__2lQRG navbar-toggler collapsed"]').click();
+        cy.get('div[class="SidebarLinks_pessoasHover__2qnHv nav-item dropdown"]')
             .should('have.text', 'Pessoas')
             .click();
-        cy.get('[href="https://app.teamculture.com.br/"]')
+        cy.get('a[href="https://app.teamculture.com.br/"]')
             .should('have.text', 'Team Culture')
             .and('have.attr', 'href', 'https://app.teamculture.com.br/')
             .and('have.attr', 'target', '_blank');
