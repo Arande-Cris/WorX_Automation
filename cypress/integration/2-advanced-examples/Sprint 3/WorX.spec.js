@@ -13,24 +13,6 @@ describe('Teste Site WorX - Grupo 4', () =>{
   
   });
 
- //SEM VALIDAÇÃO, MAS QUERO ADICIONAR.
-           
- it('Avançando Banner Barra', ()=>{
-   acessar.avancarBannerBarra();
-    
-  });
-
-  it('Avançando Banner Seta', ()=>{
-   acessar.avancarBannerSeta();
-     
-  });
-
-  it('Avançando Paginação', ()=>{
-   acessar.paginação();
-   
-     
-  });
-
  //SEM VALIDAÇÃO E COM REPETIÇÃO DE CÓDIGO.
 
 
@@ -67,16 +49,6 @@ describe('Teste Site WorX - Grupo 4', () =>{
 
   })
 
-
-  it('Adicionar Link Favoritos Outros', ()=>{
-   acessar.adicionarLinkOutros()
-  }); 
-
- it('Deletar Link Favorito',()=>{
-   cy.get(':nth-child(6) > .Atalhos_botaoDelete__NQDCy').click({force: true});
-
-  });
-
  //COM VALIDAÇÃO E NÃO QUERO ALTERAR A CURTO PRAZO.
  
   it('Adicionar tarefas do dia',()=>{
@@ -84,80 +56,7 @@ describe('Teste Site WorX - Grupo 4', () =>{
 
   })
 
-  for (let z =1; z<2; z++) {
- 
-    var index = 0;
   
-   it('Gravar Titulo Card Pagina 1',()=>{
-     for(let i =1; i<=z; i++){
-       index = i;
-       cy.log("esse é o i: "+i)
-       cy.get(':nth-child('+i+') > .Tag_cardzao__20zfG > .Tag_cardBody__2TX7t > :nth-child(1) > .Tag_textPost__2DKS_ > .Tag_cardheader__16N2f').invoke('text').as('titulo');  
-      }
-    });
-    
-   it('Validar Noticia', function () {
-     for(let k =1; k<2; k++){
-         if(index == k){
-         cy.get(':nth-child('+k+') > .Tag_cardzao__20zfG > .Tag_cardBody__2TX7t > :nth-child(1) > .Tag_textPost__2DKS_ > .Tag_leiamais__zeQKp > .Modal_buttonCards__1DnSE').click({force: true})
-         cy.get('.d-flex > h3').invoke('text').should('be.eq', this.titulo)
-         cy.get(el.FECHARNOTICIA).click()
-        }
-      }
-    });
-  }
-
-  for (let z =1; z<2; z++) {
-  
-    var index = 0;
-  
-   it('Gravar Titulo Card Pagina 2',()=>{
-     for(let i =1; i<=z; i++){
-       index = i;
-       cy.log("esse é o i: "+i)
-       cy.get('[value="1"]').click();
-       cy.get(':nth-child('+i+') > .Tag_cardzao__20zfG > .Tag_cardBody__2TX7t > :nth-child(1) > .Tag_textPost__2DKS_ > .Tag_cardheader__16N2f').invoke('text').as('titulo');  
-      }
-    });
-    
-    it('Validar Noticia', function () {
-      for(let k =1; k<2; k++){
-       if(index == k){
-         cy.get('[value="1"]').click();
-         cy.get(':nth-child('+k+') > .Tag_cardzao__20zfG > .Tag_cardBody__2TX7t > :nth-child(1) > .Tag_textPost__2DKS_ > .Tag_leiamais__zeQKp > .Modal_buttonCards__1DnSE').click({force: true})
-         cy.get('.d-flex > h3').invoke('text').should('be.eq', this.titulo)
-         cy.get(el.FECHARNOTICIA).click()
-        }
-      
-      }
-    });
-  }
-  
-  for (let z =1; z<2; z++) {
-  
-    var index = 0;
-  
-    it('Gravar Titulo Card Pagina 3',()=>{
-       for(let i =1; i<=z; i++){
-        index = i;
-        cy.log("esse é o i: "+i)
-        cy.get('[value="1"]').click();
-        cy.get(':nth-child('+i+') > .Tag_cardzao__20zfG > .Tag_cardBody__2TX7t > :nth-child(1) > .Tag_textPost__2DKS_ > .Tag_cardheader__16N2f').invoke('text').as('titulo');  
-      }
-    });
-    
-    it('Validar Noticia', function () {
-      for(let k =1; k<2; k++){
-         if(index == k){
-          cy.get('[value="1"]').click();
-          cy.get(':nth-child('+k+') > .Tag_cardzao__20zfG > .Tag_cardBody__2TX7t > :nth-child(1) > .Tag_textPost__2DKS_ > .Tag_leiamais__zeQKp > .Modal_buttonCards__1DnSE').click({force: true})
-          cy.get('.d-flex > h3').invoke('text').should('be.eq', this.titulo)
-          cy.get(el.FECHARNOTICIA).click()
-        }
-      }
-    });
-  }
-
  //COM VALIDAÇÃO, MAS É NECESSÁRIO MELHORAR.
 
  //VALIDAR TIPO DATA E CRONOLOGIA.

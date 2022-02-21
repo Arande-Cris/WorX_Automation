@@ -1,12 +1,14 @@
 /// <reference types="cypress" />
 import auth from "../../support/Actions/authActions";
 import faker from "@faker-js/faker";
+faker.locale = 'pt_BR';
 
 
 
 describe("Teste Site WorX - Grupo 4", () => {
     beforeEach(() => {
         cy.goToPage();
+
     });
 
     it("Pesquisar na barra com faker", () => {
@@ -21,6 +23,46 @@ describe("Teste Site WorX - Grupo 4", () => {
     it("Advance Page", () => {
         auth.advancePages();
     });
+
+    //Validando se Titulo Noticia é igual ao titulo do texto após aberto o d
+    for (let z = 1; z < 3; z++) {
+
+        var index = 0;
+
+        it('Gravar Titulo Card Pagina 1', () => {
+            for (let i = 1; i <= z; i++) {
+                index = i;
+                cy.log("esse é o i: " + i)
+                cy.get(':nth-child(' + i + ') > .Tag_cardzao__20zfG > .Tag_cardBody__2TX7t > :nth-child(1) > .Tag_textPost__2DKS_ > .Tag_cardheader__16N2f').invoke('text').as('titulo');
+            }
+        });
+
+        it('Validar Noticia', function () {
+            for (let k = 1; k < 3; k++) {
+                if (index == k) {
+                    cy.get(':nth-child(' + k + ') > .Tag_cardzao__20zfG > .Tag_cardBody__2TX7t > :nth-child(1) > .Tag_textPost__2DKS_ > .Tag_leiamais__zeQKp > div > .Modal_buttonCards__1DnSE').click({ force: true })
+                    cy.get('.d-flex > h3').invoke('text').should('be.eq', this.titulo)
+                    cy.get('button[class="btn-close"]').click()
+                }
+            }
+        });
+    }
+
+    it('Adicionar tarefas do dia',() => {
+        const nameTask = faker.random.words(2)
+        cy.get('button[class="btn btn-primary"]').scrollIntoView().click({force: true})
+        cy.get('input[placeholder="Adicione uma nova task"]').type(nameTask)
+        cy.get('input[placeholder="Adicione uma nova task"]').invoke('text').as('taks')
+        cy.get('.ToDoList_addTask__3zQSA > button').click()
+        cy.get('button[class="btn-close"]').click()
+
+    })
+
+    it('Validar tarefas do dia adicionadas', function () {
+        cy.get('button[class="btn btn-primary"]').scrollIntoView().click({ force: true })
+        cy.get('.modal-body > :nth-child(2) > :nth-child(1)').invoke('text').should('contains', this.taks)
+
+    })
 
     it("Cadastro Valido", () => {
         cy.registerInfoValid('Arande Cristina', '1234', 'APPIA', '08235770', '1745', '44617465896', '2022-02-08', 'o nome é muito grande');
@@ -92,8 +134,13 @@ describe("Teste Site WorX - Grupo 4", () => {
 
     });
 
-    it("Cadastro CPF Invalido (Invalido)", () => {
-        cy.registerInfoInvalidName('Arande Cristina', '1234', 'APPIA', '08235770', '1745', '44617465', '1998-01-16', 'campo CPF não possui onze dígitos');
+    it("Cadastro CPF Invalido (C/ 10 numeros)", () => {
+        cy.registerInfoInvalidName('Arande Cristina', '1234', 'APPIA', '08235770', '1745', '4491742199', '1998-01-16', 'campo CPF não possui onze dígitos');
+
+    });
+
+    it("Cadastro CPF Invalido (C/ 12 numeros)", () => {
+        cy.registerInfoInvalidName('Arande Cristina', '1234', 'APPIA', '08235770', '1745', '449174219999', '1998-01-16', 'campo CPF não possui onze dígitos');
 
     });
 
@@ -146,6 +193,28 @@ describe("Teste Site WorX - Grupo 4", () => {
     it("Redirecionamento Link Reserva de Mesas", () => {
         auth.directionLinkReserva();
     });
+
+    // it.only('Compartilhar Noticias', function () {
+    //     for (let z = 1; z < 3; z++) {
+    //         if (z = 1) {
+
+    //             cy.get(':nth-child(' + z + ') > .Tag_cardzao__20zfG > .Tag_cardBody__2TX7t > :nth-child(1) > :nth-child(1) > .Modal_buttonIcon__2N_Dn > svg').click()
+    //             cy.get('.modal-body > button').click()
+    //             cy.get('button[class="Modal_Confirm__1zlJm btn btn-primary"]').click()
+    //             cy.get(':nth-child(11) > .Modal_ButtonGet__F5NW1').click()
+    //             cy.get('.modal-footer > :nth-child(1)').click()
+    //             cy.get('.modal-footer > :nth-child(2)').click()
+    //         }
+
+    //         else {
+    //             cy.get(':nth-child(' + z + ') > .Tag_cardzao__20zfG > .Tag_cardBody__2TX7t > :nth-child(1) > :nth-child(1) > .Modal_buttonIcon__2N_Dn > svg').click()
+    //             cy.get(':nth-child(11) > .Modal_ButtonGet__F5NW1').click()
+    //             cy.get('.modal-footer > :nth-child(1)').click()
+    //             cy.get('.modal-footer > :nth-child(2)').click()
+    //         }
+    //     }
+
+    // })
 
     // it("have dates sorted chronologically", () => {
     //     for (let i = 1; i < 5; i++) {

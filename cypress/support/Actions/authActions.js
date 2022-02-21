@@ -5,7 +5,7 @@ class AuthActions {
     constructor() {
         this.next = '[class= "carousel-control-next"]';
         this.prev = '[class= "carousel-control-prev"]';
-        this.escrever = 'Testar Adicionar Tarefas do dia';
+        this.nameTask = faker.random.words(3);
         this.comentario = 'Testando comentário';
         this.nameLink = 'Cypress Avançado'
         this.linkOthers = 'https://ambevtech.udemy.com/course/testes-automatizados-com-cypress-avancado/learn/lecture/25423310#overview';
@@ -22,7 +22,7 @@ class AuthActions {
 
     barraPesquisar() {
         cy.get(this.barraPesquisa).type(faker.random.uuid(1));
-        cy.get('div[class^= "fade alert"]', { timout: 10000 })
+        cy.get('div[class^= "fade alert"]', {timout: 10000 })
             .should("be.visible")
             .and("have.text", "Certifique-se que digitou corretamente")
         cy.get(this.barraPesquisa).clear();
@@ -85,12 +85,12 @@ class AuthActions {
         }
     }
 
-    validateAddTask() {
-        cy.get('.ToDoList_inputContainer__3gfm9 > input').type(this.escrever);
-        cy.get('.ToDoList_addTask__3zQSA > button').click();
-        cy.get('.Tasks_taskContent__q0_cB').should('contain', this.escrever);
-        cy.get('.Tasks_deleteButton__1cImV').click();
+    addTask() {
 
+    }
+
+    validateAddTask() {
+      
     }
 
     giveLike() {
